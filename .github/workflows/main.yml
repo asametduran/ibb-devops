@@ -1,0 +1,51 @@
+# İş akışımızın adı
+name: Docker Imajı Oluştur, Test Et ve Yayınla
+
+# Bu otomasyon ne zaman çalışsın?
+# "main" isimli ana kod dalına yeni bir kod gönderildiğinde (git push)
+on:
+  push:
+    branches: [ "main" ]
+
+# Yapılacak işler
+jobs:
+  build-and-push:
+    # Bu iş hangi sanal makinede çalışsın? Ubuntu'nun son versiyonunda.
+    runs-on: ubuntu-latest
+
+    # Sırasıyla yapılacak adımlar
+    steps:
+      # 1. Adım: Kodunu GitHub'dan bu sanal bilgisayara indir
+      - name: Kodu Checkout Yap
+        uses: actions/checkout@v4
+
+      # 2. Adım: Node.js'i kur (testleri çalıştırmak için gerekli)
+      - name: Node.js Kurulumu
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      # 3. Adım: Gerekli tüm paketleri kur (express, axios, jest vb.)
+      - name: Paketleri Yükle
+        run: npm install
+
+      # 4. Adım: Otomatik testleri çalıştır
+      # EĞER BU TEST BAŞARISIZ OLURSA, SONRAKİ ADIMLARA HİÇ GEÇMEZ!
+      - name: Uygulamayı Test Et
+        run: npm test
+
+      # 5. Adım (Testler başarılıysa): Docker Hub'a giriş yap
+      # GitHub ayarlarına kaydettiğin gizli bilgileri kullanır.
+      - name: Docker Hub'a Giriş Yap
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # 6. Adım: Docker imajını oluştur ve Docker Hub'a gönder
+      - name: Docker Imajını Build ve Push Et
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: lesyeuxdesd/dev-ops-ibb:latest 
