@@ -48,4 +48,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: lesyeuxdesd/dev-ops-ibb:latest 
+          tags: lesyeuxdesd/dev-ops-ibb:latest
