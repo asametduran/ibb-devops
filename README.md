@@ -1,6 +1,6 @@
 # IBB Tech Istanbul - DevOps Atölyesi Projesi
 
-Bu repositori, **IBB Tech Istanbul** tarafından düzenlenen **DevOps Atölyesi** kapsamında oluşturulmuş bir başlangıç projesidir. Proje, basit bir Python Flask uygulamasının Docker ile konteyner haline getirilmesi adımlarını içermektedir.
+Bu repositori, **IBB Tech Istanbul** tarafından düzenlenen **DevOps Atöryesi** kapsamında oluşturulmuş bir başlangıç projesidir. Proje, basit bir Python Flask uygulamasının Docker ile konteyner haline getirilmesi adımlarını içermektedir.
 
 ## 🚀 Projenin Amacı
 
@@ -33,3 +33,34 @@ Projeyi Docker kullanarak hızlıca ayağa kaldırabilirsiniz.
 a. **Docker imajını oluşturun:**
 ```bash
 docker build -t ibb-devops-app .
+
+b. Oluşturulan imajdan bir konteyner başlatın:
+Bash
+
+docker run -p 5000:5000 ibb-devops-app
+
+Uygulama artık http://localhost:5000 adresinde çalışıyor olacaktır.
+
+2. Manuel Kurulum
+
+a. Repository'yi klonlayın:
+Bash
+
+git clone [https://github.com/asametduran/ibb-devops.git](https://github.com/asametduran/ibb-devops.git)
+cd ibb-devops
+
+b. Python bağımlılıklarını yükleyin:
+Bash
+
+pip install -r requirements.txt
+
+c. Uygulamayı başlatın:
+Bash
+
+python app.py
+
+Uygulama http://127.0.0.1:5000 adresinde çalışmaya başlayacaktır.
+
+📄 Lisans
+
+Bu proje MIT Lisansı ile lisanslanmıştır.
